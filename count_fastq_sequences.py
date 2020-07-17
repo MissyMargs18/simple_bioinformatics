@@ -5,12 +5,12 @@ import operator
 count_dict = {}
 
 # first argument is the path to the fastq file
-infile = open(sys.argv[1],"r")
+infile = open(sys.argv[2],"r")
 inlines = infile.readlines()
 infile.close()
 
-# parse every 4th line in the fastq file, starting at line 1
-for seq in inlines[1::4]:
+# parse every 2nd line in the fastq file, starting at line 1
+for seq in inlines[1::2]:
     if seq.strip("\n") in count_dict:
         count_dict[seq.strip("\n")] += 1
     else:
@@ -21,4 +21,4 @@ sorted_count_dict = sorted(count_dict.items(), key=operator.itemgetter(1))
 
 # print the top 10 most frequent sequences and the number of times they were counted
 for tup in sorted_count_dict[-10:]:
-    print "{},{}\n".format(tup[0], tup[1])
+    print "{}, {},{}\n".format(sys.argv[1], tup[0], tup[1])
